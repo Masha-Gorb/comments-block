@@ -2,14 +2,23 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width">
-    <title>comments block</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    </head>
 <body>
-<script src="index.js"></script>
-	<h1>Comments block</h1>
-</body>
+<h1>Comments</h1>
+<form>
+    <label for="comment-name">Ваше имя: </label>
+    <input id="comment-name" placeholder="Введите имя" >
+    <br/>
+    <label for="comment-text">Ваш комментарий: </label>
+    <input id="comment-text" placeholder="Введите текст">
+    <br/>
+    <button type="submit" id="comment-add">Отправить</button>
+</form>
 
+<div id="comment-field"></div>
+
+<script src="index.js"></script>
+</body>
 </html>
