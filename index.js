@@ -1,7 +1,18 @@
+let addCommentBtn = document.querySelector('#comment-add');
+addCommentBtn.addEventListener('keypress', (e) => {
+    let key = e.keyCode || e.which;
+    if (key === 13) { // Клавиша Enter
+        console.log('enter');
+        addComment();
+    }
+});
+
+addCommentBtn.addEventListener('click', addComment);
+
 let comments = [];
 loadComments();
 
-document.getElementById('comment-add').onclick = function() {
+function addComment() {
     event.preventDefault();
     let commentName = document.getElementById('comment-name');
     let commentText = document.getElementById('comment-text');
@@ -13,13 +24,13 @@ document.getElementById('comment-add').onclick = function() {
     let actualDate = '';
     let actualTime = getHoursAndMinutes(Math.floor(Date.now()/1000))
     if(userDate === todayDate) {
-        actualDate = 'сегодня, ' + 'время: ' + actualTime
+        actualDate = 'сегодня, ' + ' ' + actualTime
     } else if (userDate ===  todayDate-1 ) {
-        actualDate = 'вчера, ' + 'время: ' + actualTime
+        actualDate = 'вчера, ' + ' ' + actualTime
     } else {
-        actualDate = commentDate.value + ', время: ' + actualTime;
+        actualDate = commentDate.value + ', ' + actualTime;
     }
-    
+
     let comment = {
         id: Math.random(),
         name: commentName.value,
@@ -28,11 +39,10 @@ document.getElementById('comment-add').onclick = function() {
     }
 
     comments.push(comment);
-    // commentName.value = '';
-    // commentText.value = '';
     saveCommentsToLS();
     setCommentsFromLS();
 }
+
 
 function saveCommentsToLS(){
     localStorage.setItem('comments', JSON.stringify(comments));
@@ -52,7 +62,8 @@ function setCommentsFromLS(){
         out += `<p>Дата: ${item.date}</p>`
         out += `<p>Имя: ${item.name}</p>`
         out += `<p>Комментарий: ${item.text}</p>`
-        out += `<button id="comment-delete" onClick="removeComment(${item.id})">Удолить</button>`
+        out += `<button id="comment-delete" onClick="removeComment(${item.id})">🗑</button>`
+        out += `<button id="comment-like">💖</button>`
     });
 
     commentField.innerHTML = out;
