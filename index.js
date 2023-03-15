@@ -5,12 +5,26 @@ document.getElementById('comment-add').onclick = function() {
     event.preventDefault();
     let commentName = document.getElementById('comment-name');
     let commentText = document.getElementById('comment-text');
+    let commentDate = document.getElementById('comment-date');
 
+    let todayDate = timeConverter(Math.floor(Date.now()/1000));
+    let userDate = Number(commentDate.value.split('').reverse().splice(0, 2).reverse().join(''));
+
+    let actualDate = '';
+    let actualTime = getHoursAndMinutes(Math.floor(Date.now()/1000))
+    if(userDate === todayDate) {
+        actualDate = 'сегодня, ' + 'время: ' + actualTime
+    } else if (userDate ===  todayDate-1 ) {
+        actualDate = 'вчера, ' + 'время: ' + actualTime
+    } else {
+        actualDate = commentDate.value + ', время: ' + actualTime;
+    }
+    
     let comment = {
         id: Math.random(),
         name: commentName.value,
         text: commentText.value,
-        date: Math.floor(Date.now()/1000)
+        date: actualDate,
     }
 
     comments.push(comment);
@@ -35,10 +49,9 @@ function setCommentsFromLS(){
     let commentField = document.getElementById('comment-field');
     let out = '';
     comments.map( item => {
-        out += `<p>Дата: ${timeConverter(item.date)}</p>`
+        out += `<p>Дата: ${item.date}</p>`
         out += `<p>Имя: ${item.name}</p>`
         out += `<p>Комментарий: ${item.text}</p>`
-        out += `<p>ID: ${item.id}</p>`
         out += `<button id="comment-delete" onClick="removeComment(${item.id})">Удолить</button>`
     });
 
@@ -54,12 +67,15 @@ function removeComment(id) {
 
 function timeConverter(UNIX_timestamp){
     let a = new Date(UNIX_timestamp * 1000);
-    let months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-    let year = a.getFullYear();
-    let month = months[a.getMonth()];
-    let date = a.getDate();
+    // let months = ['01', '02' , '03','04','05','06','07','08','09','10','11','12'];
+    // let month = months[a.getMonth()];
+    // let date = a.getDate();
+    return a.getDate();
+}
+
+function getHoursAndMinutes(UNIX_timestamp){
+    let a = new Date(UNIX_timestamp * 1000);
     let hour = a.getHours();
     let min = a.getMinutes();
-    let sec = a.getSeconds();
-    return date + ' ' + month + ' ' + year + ' ' + hour + ':' + min + ':' + sec;
+    return hour + ':' + min;
 }
