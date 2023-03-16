@@ -3,24 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css">
     <title>Comments block</title>
     </head>
-<body>
-<h1>Comments</h1>
-<form>
-    <label for="comment-name">Ваше имя: </label>
-    <input id="comment-name" placeholder="Введите имя" >
-    <br/>
-    <label for="comment-text">Ваш комментарий: </label>
-    <input id="comment-text" placeholder="Введите текст">
-    <br/>
-    <label>Pick a date:</label>
-    <label for="comment-date"></label><input id="comment-date" type="date">
-    <br/>
-    <button type="submit" id="comment-add">Отправить</button>
-</form>
 
-<div id="comment-field"></div>
+<body>
+<div class="container">
+    <h2>Comments</h2>
+    <form class="form">
+        <div class="form-control">
+            <label for="comment-name">Ваше имя: </label>
+            <input id="comment-name" placeholder="Введите имя" >
+            <small>Error Message</small>
+        </div>
+
+            <div class="form-control">
+                <label for="comment-text">Ваш комментарий: </label>
+                <input id="comment-text" placeholder="Введите текст">
+                <small>Error Message</small>
+            </div>
+        <div>
+            <label for="comment-date" class="comment-date">Выберите дату:</label>
+            <input id="comment-date" type="date">
+        </div>
+        <button type="submit" id="comment-add">Отправить</button>
+    </form>
+</div>
+
+<div id="comment-field" class="comment-field"></div>
 
 <script src="index.js"></script>
 </body>

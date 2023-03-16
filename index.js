@@ -18,6 +18,7 @@ function addComment() {
     let commentText = document.getElementById('comment-text');
     let commentDate = document.getElementById('comment-date');
 
+
     let todayDate = timeConverter(Math.floor(Date.now()/1000));
     let userDate = Number(commentDate.value.split('').reverse().splice(0, 2).reverse().join(''));
 
@@ -37,6 +38,32 @@ function addComment() {
         text: commentText.value,
         date: actualDate,
     }
+
+    // //check input Length
+    // function checkLength(input) {
+    //     if(input.value.length < 10) {
+    //         showError(input, `Текст комменатрия must be at least ${10} characters`);
+    //     }else if(input.value.length > 200) {
+    //         showError(input, `Текст комменатрия must be les than ${200} characters`);
+    //     }else {
+    //         showSucces(input);
+    //     }
+    // }
+
+// //show success colour
+//     function showSucces(input) {
+//         const formControl = input.parentElement;
+//         formControl.className = 'form-control success';
+//     }
+// //Show input error messages
+//     function showError(input, message) {
+//         const formControl = input.parentElement;
+//         formControl.className = 'form-control error';
+//         const small = formControl.querySelector('small');
+//         small.innerText = message;
+//     }
+//
+//     checkLength(commentText.value);
 
     comments.push(comment);
     saveCommentsToLS();
@@ -59,11 +86,17 @@ function setCommentsFromLS(){
     let commentField = document.getElementById('comment-field');
     let out = '';
     comments.map( item => {
-        out += `<p>Дата: ${item.date}</p>`
-        out += `<p>Имя: ${item.name}</p>`
-        out += `<p>Комментарий: ${item.text}</p>`
-        out += `<button id="comment-delete" onClick="removeComment(${item.id})">🗑</button>`
-        out += `<button id="comment-like">💖</button>`
+        out += `<div class="test">
+                        <p>Дата: ${item.date}</p>
+                        <p>Имя: ${item.name}</p>
+                        <p>Комментарий: ${item.text}</p>
+                        <button id="comment-delete" onClick="removeComment(${item.id})">🗑</button>
+                        <button id="comment-like">💖</button>
+                </div>`
+        // out += `<p>Имя: ${item.name}</p>`
+        // out += `<p>Комментарий: ${item.text}</p>`
+        // out += `<button id="comment-delete" onClick="removeComment(${item.id})">🗑</button>`
+        // out += `<button id="comment-like">💖</button>`
     });
 
     commentField.innerHTML = out;
@@ -74,6 +107,7 @@ function removeComment(id) {
     localStorage.setItem('comments', JSON.stringify(retrievedComments))
     loadComments();
 }
+
 
 
 function timeConverter(UNIX_timestamp){
@@ -90,3 +124,6 @@ function getHoursAndMinutes(UNIX_timestamp){
     let min = a.getMinutes();
     return hour + ':' + min;
 }
+
+
+
